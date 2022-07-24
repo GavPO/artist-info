@@ -42,8 +42,8 @@ function showRelatedVideos(allVids) {
         var searchLink = "https://www.youtube.com/embed/"+videoLink;
         var vidEl = $("<iframe>");
         vidEl.attr("src", searchLink);
-        vidEl.attr("height", "120");
-        vidEl.attr("width", "220");
+        vidEl.attr("height", "200");
+        vidEl.attr("width", "25%-vh");
         relatedVidField.append(vidEl);
     }
 };
