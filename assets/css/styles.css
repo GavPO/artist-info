@@ -78,6 +78,18 @@
   }
 }
 
+#wikitext {
+  width: 100%;
+  height: 330px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -2226,7 +2238,7 @@ progress {
   background-color: #fff;
   border-color: #86b7fe;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  box-shadow: 0 0 0 0.25rem rgb(253, 169, 13);
 }
 .form-control::-webkit-date-and-time-value {
   height: 1.5em;

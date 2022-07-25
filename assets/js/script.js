@@ -5,6 +5,11 @@ var searchBtn = $("#search-button");
 var mainVidField = $("#main-video-field");
 var relatedVidField = $("#related-videos-field");
 var titleField = $("#video-title-field");
+var descriptionEl = $("#description")
+
+document.getElementById("search-field").addEventListener("search", function(event) {
+    $(".resultingarticles").empty();  
+  });
 
 function searchYouTube(event) {
     event.preventDefault();
@@ -29,11 +34,13 @@ function showMainVideo(data) {
     showRelatedVideos(allVids)
 };
 
+
 function showTitle(mainVid) {
     var titleEl = $("<h3>");
     titleField.append(titleEl);
     titleEl.text(mainVid.snippet.title);
 }
+
 
 function showRelatedVideos(allVids) {
     console.log(allVids);
