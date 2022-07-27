@@ -104,6 +104,7 @@ function learnMoreBtn(pageId) {
   aTag.attr("href", wikiPage);
   aTag.attr("target", "_blank");
   aTag.text("Learn More");
+  aTag.addClass("btn btn-sm btn-danger")
   wikiField.append(aTag);
 }
 
