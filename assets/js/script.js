@@ -1,5 +1,4 @@
-var apiCall =
-  "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=";
+var apiCall = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=";
 var apiKeyCall = "&type=video&key=AIzaSyDhveCUnM4G3fkKp_W1S2YUhGMOkknN-uY";
 var searchField = $("#search-field");
 var searchBtn = $("#search-button");
@@ -104,6 +103,7 @@ function learnMoreBtn(pageId) {
   aTag.attr("href", wikiPage);
   aTag.attr("target", "_blank");
   aTag.text("Learn More");
+  aTag.addClass("btn btn-sm btn-warning");
   wikiField.append(aTag);
 }
 
