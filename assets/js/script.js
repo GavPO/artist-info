@@ -5,37 +5,51 @@ var searchBtn = $("#search-button");
 var mainVidField = $("#main-video-field");
 var relatedVidField = $("#related-videos-field");
 var titleField = $("#video-title-field");
-var wikiApiCall = "https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srsearch=";
+var wikiApiCall =
+  "https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srsearch=";
 var wikiField = $("#wiki-text-field");
 var readMore = $("#readmore");
 
+// USING THE TEXT IN THE SEARCH BOX SEARCH YOUTUBE FOR THAT TEXT
 function searchYouTube(event) {
-    event.preventDefault();
-    var searchText = $(searchField).val();
-    console.log(searchText)
-    fetch(apiCall+searchText+apiKeyCall) 
-        .then (function(response) {
-            return response.json()
-        })
-        .then (function(data) {
-            showMainVideo(data);
-        })
+  event.preventDefault();
+  // CLEAR ANY VIDEOS IN THE RELATED FIELD FROM ANY PRIOR SEARCHES
+  relatedVidField.children().remove();
+  // GRAB THE TEXT TO SEARCH
+  var searchText = $(searchField).val();
+  // CALL THE API USING THE API CALL + THE SEARCH TERM + THE API KEY
+  fetch(apiCall + searchText + apiKeyCall)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      // USING THE OBJECT GOTTEN FROM THE API SHOW THE MAIN VIDEO
+      showMainVideo(data);
+    });
 }
 
 function showMainVideo(data) {
-    var allVids = data;
-    var mainVid = data.items[0];
-    var videoLink = mainVid.id.videoId;
-    var searchLink = "https://www.youtube.com/embed/"+videoLink;
-    mainVidField.attr("src", searchLink);
-    showTitle(mainVid);
-    showRelatedVideos(allVids)
-};
+  // SAVE A VARIABLE WITH ALL OF THE VIDEOS FROM THE OBJECT
+  var allVids = data;
+  // SAVE A VARIABLE FOR THE MOST POPULAR VIDEO
+  var mainVid = data.items[0];
+  // GRAB THE ID FOR THE MAINVID
+  var videoLink = mainVid.id.videoId;
+  // BUILD THE EMBEDING LINK FOR THAT YOUTUBE VIDEO
+  var searchLink = "https://www.youtube.com/embed/" + videoLink;
+  // CHANGE THE SOURCE OF THE IFRAME IN THE HTML
+  mainVidField.attr("src", searchLink);
+  // MAKE A TITLE FOR THE MAIN VIDEO USING THE SHOWTITLE FUNCTION
+  showTitle(mainVid);
+  // SHOW OTHER VIDEOS BY THAT ARTIST USING THE SHOWRELATEDVIDEOS FUNCTION
+  showRelatedVideos(allVids);
+}
 
 function showTitle(mainVid) {
-    var titleEl = $("<h3>");
-    titleField.append(titleEl);
-    titleEl.text(mainVid.snippet.title);
+  // MAKE A HEADER ELEMENT AND SET THE TEXT TO THE TITLE OF THE MAIN VIDEO
+  var titleEl = $("<h3>");
+  titleField.append(titleEl);
+  titleEl.text(mainVid.snippet.title);
 }
 
 function showRelatedVideos(allVids) {
