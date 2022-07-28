@@ -1,5 +1,5 @@
 var apiCall =
-  "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=";
+  "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=7&q=";
 var apiKeyCall = "&type=video&key=AIzaSyDhveCUnM4G3fkKp_W1S2YUhGMOkknN-uY";
 var searchField = $("#search-field");
 var searchBtn = $("#search-button");
@@ -63,7 +63,7 @@ function showRelatedVideos(allVids) {
     var vidEl = $("<iframe>");
     vidEl.attr("src", searchLink);
     vidEl.attr("height", "220");
-    vidEl.attr("width", "300");
+    vidEl.attr("width", "320");
     relatedVidField.append(vidEl);
   }
 }
@@ -104,6 +104,7 @@ function learnMoreBtn(pageId) {
   aTag.attr("href", wikiPage);
   aTag.attr("target", "_blank");
   aTag.text("Learn More");
+  aTag.addClass("btn btn-sm btn-warning");
   wikiField.append(aTag);
 }
 
@@ -111,3 +112,25 @@ function learnMoreBtn(pageId) {
 searchBtn.on("click", searchYouTube);
 // ON BUTTON CLICK RUN THE SEARCH WIKI FUNCTION
 searchBtn.on("click", searchWiki);
+
+// let items = document.querySelectorAll(".carousel .carousel-item");
+
+// items.forEach((el) => {
+//   const minPerSlide = 4;
+//   let next = el.nextElementSibling;
+//   for (var i = 1; i < minPerSlide; i++) {
+//     if (!next) {
+//       // wrap carousel by using first child
+//       next = items[0];
+//     }
+//     let cloneChild = next.cloneNode(true);
+//     el.appendChild(cloneChild.children[0]);
+//     next = next.nextElementSibling;
+//   }
+// });
+
+// function makeCaroel(allVids) {
+//   for (i = 1; i < allVids.items.length; i++) var imgEl = $("<iframe>");
+//   imgEl.attr("src", allVids.items[1].thumbnails.med);
+//   relatedVidField.append(imgEl);
+// }
