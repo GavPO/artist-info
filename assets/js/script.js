@@ -1,4 +1,5 @@
-var apiCall = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=";
+var apiCall =
+  "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=";
 var apiKeyCall = "&type=video&key=AIzaSyDhveCUnM4G3fkKp_W1S2YUhGMOkknN-uY";
 var searchField = $("#search-field");
 var searchBtn = $("#search-button");
@@ -11,6 +12,8 @@ var wikiField = $("#wiki-text-field");
 var readMore = $("#readmore");
 var audioDBcall = "https://theaudiodb.com/api/v1/json/2/discography.php?s=";
 var discolist = $("#discoList");
+var generalDB = "https://theaudiodb.com/api/v1/json/2/search.php?s=";
+var bandName = $("#bandNameID");
 
 // USING THE TEXT IN THE SEARCH BOX SEARCH YOUTUBE FOR THAT TEXT
 function searchYouTube(event) {
@@ -116,13 +119,16 @@ searchBtn.on("click", searchWiki);
 
 searchBtn.on("click", searchAudioDB);
 
-// USING THE TEXT IN THE SEARCH BOX SEARCH YOUTUBE FOR THAT TEXT
+searchBtn.on("click", searchgeneralDB);
+
+// -------AudioDB Discography---------//
+
+// USING THE TEXT IN THE SEARCH BOX SEARCH AUDIODB FOR THAT TEXT
 function searchAudioDB(event) {
   event.preventDefault();
 
-  // GRAB THE TEXT TO SEARCH
   var searchText = $(searchField).val();
-  // CALL THE API USING THE API CALL + THE SEARCH TERM + THE API KEY
+
   fetch(audioDBcall + searchText)
     .then(function (response) {
       return response.json();
@@ -141,4 +147,19 @@ function showDisco(albums) {
     discolist.append(disEl);
     currentArrayitem += 1;
   }
+}
+
+function searchgeneralDB(event) {
+  event.preventDefault();
+
+  var searchText = $(searchField).val();
+
+  fetch(generalDB + searchText)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      var name = data.artists.strArtist;
+      bandName.append(name);
+    });
 }
