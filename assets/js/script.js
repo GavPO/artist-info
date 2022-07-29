@@ -1,6 +1,5 @@
-var apiCall =
-  "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=";
-var apiKeyCall = "&type=video&key=AIzaSyB6ZL2SWCczxWWj67wt_pNSu8XC5VXWNPk";
+var apiCall = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=";
+var apiKeyCall = "&type=video&key=AIzaSyDhveCUnM4G3fkKp_W1S2YUhGMOkknN-uY";
 var searchField = $("#search-field");
 var searchBtn = $("#search-button");
 var mainVidField = $("#main-video-field");
