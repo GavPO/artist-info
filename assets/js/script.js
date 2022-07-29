@@ -1,6 +1,6 @@
 var apiCall =
-  "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=7&q=";
-var apiKeyCall = "&type=video&key=AIzaSyDhveCUnM4G3fkKp_W1S2YUhGMOkknN-uY";
+  "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=";
+var apiKeyCall = "&type=video&key=AIzaSyB6ZL2SWCczxWWj67wt_pNSu8XC5VXWNPk";
 var searchField = $("#search-field");
 var searchBtn = $("#search-button");
 var mainVidField = $("#main-video-field");
@@ -10,6 +10,8 @@ var wikiApiCall =
   "https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srsearch=";
 var wikiField = $("#wiki-text-field");
 var readMore = $("#readmore");
+var audioDBcall = "https://theaudiodb.com/api/v1/json/2/discography.php?s=";
+var discolist = $("#discoList");
 
 // USING THE TEXT IN THE SEARCH BOX SEARCH YOUTUBE FOR THAT TEXT
 function searchYouTube(event) {
@@ -63,7 +65,7 @@ function showRelatedVideos(allVids) {
     var vidEl = $("<iframe>");
     vidEl.attr("src", searchLink);
     vidEl.attr("height", "220");
-    vidEl.attr("width", "320");
+    vidEl.attr("width", "315");
     relatedVidField.append(vidEl);
   }
 }
@@ -113,24 +115,31 @@ searchBtn.on("click", searchYouTube);
 // ON BUTTON CLICK RUN THE SEARCH WIKI FUNCTION
 searchBtn.on("click", searchWiki);
 
-// let items = document.querySelectorAll(".carousel .carousel-item");
+searchBtn.on("click", searchAudioDB);
 
-// items.forEach((el) => {
-//   const minPerSlide = 4;
-//   let next = el.nextElementSibling;
-//   for (var i = 1; i < minPerSlide; i++) {
-//     if (!next) {
-//       // wrap carousel by using first child
-//       next = items[0];
-//     }
-//     let cloneChild = next.cloneNode(true);
-//     el.appendChild(cloneChild.children[0]);
-//     next = next.nextElementSibling;
-//   }
-// });
+// USING THE TEXT IN THE SEARCH BOX SEARCH YOUTUBE FOR THAT TEXT
+function searchAudioDB(event) {
+  event.preventDefault();
 
-// function makeCaroel(allVids) {
-//   for (i = 1; i < allVids.items.length; i++) var imgEl = $("<iframe>");
-//   imgEl.attr("src", allVids.items[1].thumbnails.med);
-//   relatedVidField.append(imgEl);
-// }
+  // GRAB THE TEXT TO SEARCH
+  var searchText = $(searchField).val();
+  // CALL THE API USING THE API CALL + THE SEARCH TERM + THE API KEY
+  fetch(audioDBcall + searchText)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      var albums = data.album;
+      showDisco(albums);
+    });
+}
+var currentArrayitem = 0;
+
+function showDisco(albums) {
+  for (i = 1; i < albums.length; i++) {
+    var disEl = $("<li>");
+    disEl.html(albums[currentArrayitem].strAlbum);
+    discolist.append(disEl);
+    currentArrayitem += 1;
+  }
+}
