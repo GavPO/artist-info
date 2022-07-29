@@ -9,8 +9,6 @@ var wikiApiCall =
   "https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srsearch=";
 var wikiField = $("#wiki-text-field");
 var readMore = $("#readmore");
-var audioDBcall = "https://theaudiodb.com/api/v1/json/2/discography.php?s=";
-var discolist = $("#discoList");
 
 // USING THE TEXT IN THE SEARCH BOX SEARCH YOUTUBE FOR THAT TEXT
 function searchYouTube(event) {
@@ -64,7 +62,7 @@ function showRelatedVideos(allVids) {
     var vidEl = $("<iframe>");
     vidEl.attr("src", searchLink);
     vidEl.attr("height", "220");
-    vidEl.attr("width", "315");
+    vidEl.attr("width", "300");
     relatedVidField.append(vidEl);
   }
 }
@@ -113,32 +111,3 @@ function learnMoreBtn(pageId) {
 searchBtn.on("click", searchYouTube);
 // ON BUTTON CLICK RUN THE SEARCH WIKI FUNCTION
 searchBtn.on("click", searchWiki);
-
-searchBtn.on("click", searchAudioDB);
-
-// USING THE TEXT IN THE SEARCH BOX SEARCH YOUTUBE FOR THAT TEXT
-function searchAudioDB(event) {
-  event.preventDefault();
-
-  // GRAB THE TEXT TO SEARCH
-  var searchText = $(searchField).val();
-  // CALL THE API USING THE API CALL + THE SEARCH TERM + THE API KEY
-  fetch(audioDBcall + searchText)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      var albums = data.album;
-      showDisco(albums);
-    });
-}
-var currentArrayitem = 0;
-
-function showDisco(albums) {
-  for (i = 1; i < albums.length; i++) {
-    var disEl = $("<li>");
-    disEl.html(albums[currentArrayitem].strAlbum);
-    discolist.append(disEl);
-    currentArrayitem += 1;
-  }
-}
