@@ -1,4 +1,5 @@
-var apiCall = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=";
+var apiCall =
+  "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=";
 var apiKeyCall = "&type=video&key=AIzaSyDhveCUnM4G3fkKp_W1S2YUhGMOkknN-uY";
 var searchField = $("#search-field");
 var searchBtn = $("#search-button");
@@ -9,6 +10,10 @@ var wikiApiCall =
   "https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srsearch=";
 var wikiField = $("#wiki-text-field");
 var readMore = $("#readmore");
+var audioDBcall = "https://theaudiodb.com/api/v1/json/2/discography.php?s=";
+var discolist = $("#discoList");
+var generalDB = "https://theaudiodb.com/api/v1/json/2/search.php?s=";
+var bandName = $("#bandNameID");
 
 // USING THE TEXT IN THE SEARCH BOX SEARCH YOUTUBE FOR THAT TEXT
 function searchYouTube(event) {
@@ -46,6 +51,7 @@ function showMainVideo(data) {
 }
 
 function showTitle(mainVid) {
+  titleField.children().remove();
   // MAKE A HEADER ELEMENT AND SET THE TEXT TO THE TITLE OF THE MAIN VIDEO
   var titleEl = $("<h3>");
   titleField.append(titleEl);
@@ -62,7 +68,7 @@ function showRelatedVideos(allVids) {
     var vidEl = $("<iframe>");
     vidEl.attr("src", searchLink);
     vidEl.attr("height", "220");
-    vidEl.attr("width", "300");
+    vidEl.attr("width", "315");
     relatedVidField.append(vidEl);
   }
 }
@@ -111,3 +117,51 @@ function learnMoreBtn(pageId) {
 searchBtn.on("click", searchYouTube);
 // ON BUTTON CLICK RUN THE SEARCH WIKI FUNCTION
 searchBtn.on("click", searchWiki);
+
+searchBtn.on("click", searchAudioDB);
+
+searchBtn.on("click", searchgeneralDB);
+
+// -------AudioDB Discography---------//
+
+// USING THE TEXT IN THE SEARCH BOX SEARCH AUDIODB FOR THAT TEXT
+function searchAudioDB(event) {
+  event.preventDefault();
+
+  var searchText = $(searchField).val();
+
+  fetch(audioDBcall + searchText)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      var albums = data.album;
+      showDisco(albums);
+    });
+}
+var currentArrayitem = 0;
+
+function showDisco(albums) {
+  discolist.children().remove();
+  for (i = 1; i < albums.length; i++) {
+    var disEl = $("<li>");
+    disEl.html(albums[currentArrayitem].strAlbum);
+    discolist.append(disEl);
+    currentArrayitem += 1;
+  }
+}
+
+function searchgeneralDB(event) {
+  event.preventDefault();
+
+  var searchText = $(searchField).val();
+
+  fetch(generalDB + searchText)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      var name = data.artists.strArtist;
+      bandName.append(name);
+    });
+}
