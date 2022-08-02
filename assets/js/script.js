@@ -13,7 +13,7 @@ var readMore = $("#readmore");
 var audioDBcall = "https://theaudiodb.com/api/v1/json/2/discography.php?s=";
 var discolist = $("#discoList");
 var generalDB = "https://theaudiodb.com/api/v1/json/2/search.php?s=";
-var bandName = $("#bandNameID");
+var bandNameReturn = $("#bandNameID");
 
 // USING THE TEXT IN THE SEARCH BOX SEARCH YOUTUBE FOR THAT TEXT
 function searchYouTube(event) {
@@ -118,9 +118,6 @@ searchBtn.on("click", searchYouTube);
 searchBtn.on("click", searchWiki);
 
 searchBtn.on("click", searchAudioDB);
-
-searchBtn.on("click", searchgeneralDB);
-
 // -------AudioDB Discography---------//
 
 // USING THE TEXT IN THE SEARCH BOX SEARCH AUDIODB FOR THAT TEXT
@@ -147,19 +144,4 @@ function showDisco(albums) {
     discolist.append(disEl);
     currentArrayitem += 1;
   }
-}
-
-function searchgeneralDB(event) {
-  event.preventDefault();
-
-  var searchText = $(searchField).val();
-
-  fetch(generalDB + searchText)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      var name = data.artists.strArtist;
-      bandName.append(name);
-    });
 }
