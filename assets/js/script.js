@@ -51,6 +51,7 @@ function showMainVideo(data) {
 }
 
 function showTitle(mainVid) {
+  titleField.children().remove();
   // MAKE A HEADER ELEMENT AND SET THE TEXT TO THE TITLE OF THE MAIN VIDEO
   var titleEl = $("<h3>");
   titleField.append(titleEl);
@@ -141,6 +142,7 @@ function searchAudioDB(event) {
 var currentArrayitem = 0;
 
 function showDisco(albums) {
+  discolist.children().remove();
   for (i = 1; i < albums.length; i++) {
     var disEl = $("<li>");
     disEl.html(albums[currentArrayitem].strAlbum);
