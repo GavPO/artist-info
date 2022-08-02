@@ -22,7 +22,7 @@
      Gavin Orlich, Derek Kilgore, Grant Whitney, Gordon Richmeier.
      
 ### Licence: MIT License
-    Copyright (c) [2022] [Artist-Info]
+    Copyright (c) [2022] [Newstube]
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
     in the Software without restriction, including without limitation the rights
